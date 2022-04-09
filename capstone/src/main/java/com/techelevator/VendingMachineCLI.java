@@ -23,7 +23,7 @@ public class VendingMachineCLI {
 
 	public VendingMachineCLI(Menu menu) {
 		this.menu = menu;
-		inventory.createInventory();
+		inventory.createInventory("capstone\\vendingmachine.csv");
 
 	}
 

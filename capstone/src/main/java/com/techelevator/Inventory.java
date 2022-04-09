@@ -16,10 +16,10 @@ public class Inventory {
         return vendingProducts;
     }
 
-    public void createInventory() {
+    public void createInventory(String path) {
 
         try (BufferedReader br = new BufferedReader
-                (new FileReader("capstone\\vendingmachine.csv"))) {
+                (new FileReader(path))) {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] items = line.split("\\|");
@@ -35,7 +35,6 @@ public class Inventory {
     public void displayAvailableProducts() {
 
         for (Product product : vendingProducts) {
-
             System.out.println(product.toString() + " " + displayItemCount(product.getProductCount()));
 
         }
