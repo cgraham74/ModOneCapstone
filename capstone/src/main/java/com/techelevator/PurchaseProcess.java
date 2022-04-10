@@ -42,7 +42,7 @@ public class PurchaseProcess {
                 } else {
                     System.out.println("Please Enter Whole Dollar Amount");
                 }
-                System.out.println(" Current Money Provided: " + formatter.format(currentMoney));
+                System.out.println("Current Money Provided: " + formatter.format(currentMoney));
             }
             securityLog.log("FEED MONEY", moneyEntered, currentMoney);
 
