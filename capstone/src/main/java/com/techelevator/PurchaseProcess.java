@@ -30,7 +30,7 @@ public class PurchaseProcess {
 
     }
 
-    public void feedMoney() {
+    public double feedMoney() {
         Scanner moneyIn = new Scanner(System.in);
         System.out.println("Please Enter Whole Dollar Amount");
 
@@ -49,6 +49,7 @@ public class PurchaseProcess {
         } catch (InputMismatchException e) {
             System.err.println(e);
         }
+        return currentMoney;
     }
 
     public void purchaseItem(Inventory inventory) {
@@ -64,7 +65,6 @@ public class PurchaseProcess {
                 if (vp.getProductCount() > 0) {
                     if (currentMoney >= vp.getProductPrice()) {
                         double moneyBeforeDecrement = currentMoney;
-                        //decrementBeforeSecurityLog
                         currentMoney -= vp.getProductPrice();
                         System.out.println(vp.getProductName() + " " + formatter.format(vp.getProductPrice()));
                         vp.setProductCount(vp.getProductCount() - 1);
@@ -104,7 +104,7 @@ public class PurchaseProcess {
         System.out .println("Nickels: " + nickel);
         currentMoney = 0.00;
         System.out.println("Amount Remaining: " + formatter.format(currentMoney));
-        System.out.println("Thanks for using the VendoMatic 800!");
+        System.out.println("Thanks for using the Vendo-Matic 800!");
     }
 }
 

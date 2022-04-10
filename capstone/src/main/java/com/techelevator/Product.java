@@ -30,6 +30,22 @@ public class Product {
         return productCount;
     }
 
+    public void setProductId(String productId) {
+        this.productId = productId;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public void setProductPrice(double productPrice) {
+        this.productPrice = productPrice;
+    }
+
+    public void setProductType(String productType) {
+        this.productType = productType;
+    }
+
     public void setProductCount(int productCount) {
         this.productCount = productCount;
     }
