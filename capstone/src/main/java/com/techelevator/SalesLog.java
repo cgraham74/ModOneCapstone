@@ -6,6 +6,7 @@ import java.text.NumberFormat;
 import java.util.Formatter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 public class SalesLog extends GenerateLog {
 
@@ -17,25 +18,30 @@ public class SalesLog extends GenerateLog {
         }
 
         public void readSalesLog() {
+            File file = new File("sales.log");
+            try (Scanner scanIn = new Scanner(file)) {
+                while (scanIn.hasNextLine()) {
+                    String line = scanIn.nextLine();
+                    if (line.contains("Total")) {
+                        String[] totalSales = line.split(":");
+                        String money = totalSales[1].substring(2);
+                        totalGrossSales = Double.parseDouble(money);
 
-            try (BufferedReader br = new BufferedReader
-                    (new FileReader("sales.log"))) {
-                String line;
-                while ((line = br.readLine()) != null) {
-                    if (line.contains("Total Sales")) {
-                        String[] items = line.split(":");
-                        totalGrossSales = Double.parseDouble(items[1]);
+                    } else {
+                        String[] items = line.split("\\|");
+                        int temp = Integer.parseInt(items[1]);
+                        salesMap.put(items[0], temp);
                     }
-                    String[] items = line.split("\\|");
-                    int temp = Integer.parseInt(items[1]);
-                    salesMap.put(items[0], temp);
 
-                    try (PrintWriter writer = new PrintWriter("sales.log")) {
-                        writer.println("");
-                    }
                 }
             } catch (Exception e) {
                 System.out.println(e);
+            }
+            try (PrintWriter writer = new PrintWriter("sales.log")) {
+                writer.print("");
+            } catch (FileNotFoundException e) {
+                System.out.println(e);
+
             }
 
         }
@@ -47,16 +53,17 @@ public class SalesLog extends GenerateLog {
             try (PrintWriter salesOutput = new PrintWriter(new FileOutputStream("sales.log", true))){
                 double totalSales = 0;
                 for (String key : salesMap.keySet()) {
-                    salesOutput.println(key + "|" + salesMap.get(key));
+                    salesOutput.print(key + "|" + salesMap.get(key) + "\n");
                     for (Product i : inventory.getVendingProducts()) {
                         if (i.getProductName().equals(key)) {
                             totalSales += i.getProductPrice() * salesMap.get(key);
                         }
                     }
                 }
-                salesOutput.println("Total Sales: " + formatter.format(totalSales + totalGrossSales));
+                salesOutput.print("Total Sales: " + formatter.format(totalSales + totalGrossSales));
             } catch (FileNotFoundException e){
                 System.out.println(e);
+
             }
         }
 }

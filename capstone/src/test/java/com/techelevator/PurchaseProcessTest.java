@@ -134,7 +134,7 @@ public class PurchaseProcessTest extends TestCase {
         testPurchaseProcess.makeChange(testInventory);
 
                 //Throws a number exception and we don't know why it's printing
-        assertEquals("java.lang.NumberFormatException: For input string: \"$0.00\"\r\nDispensing Change:\r\n" +
+        assertEquals("Dispensing Change:\r\n" +
                 "Quarters: 4\r\nDimes: 0\r\nNickels: 0\r\nAmount Remaining: $0.00\r\n" +
                 "Thanks for using the Vendo-Matic 800!", testingStreams.toString().trim());
   }
