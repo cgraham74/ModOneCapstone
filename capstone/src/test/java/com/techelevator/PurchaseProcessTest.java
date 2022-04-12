@@ -4,14 +4,8 @@ import junit.framework.TestCase;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.validator.PublicClassValidator;
 
 import java.io.*;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
 public class PurchaseProcessTest extends TestCase {
 
@@ -41,34 +35,17 @@ public class PurchaseProcessTest extends TestCase {
         Assert.assertEquals(0.00, purchaseProcess.getCurrentMoney(), 0);
         System.setIn(clearOut);
     }
-
     @Test
     public void testFeedMoney_Whole_Number_Should_Be_Accepted() {
         PurchaseProcess purchaseProcess = new PurchaseProcess();
         InputStream clearOut = System.in;
-        ByteArrayInputStream in = new ByteArrayInputStream("7.00".getBytes());
+        ByteArrayInputStream in = new ByteArrayInputStream("5.00".getBytes());
         System.setIn(in);
         purchaseProcess.feedMoney();
-        Assert.assertEquals(7.00, purchaseProcess.getCurrentMoney(), 0);
+        Assert.assertEquals(5.00, purchaseProcess.getCurrentMoney(), 0);
         System.setIn(clearOut);
     }
-
-    @Test
-    public void testFeedMoneyNonWholeDollarAmount() {
-
-    }
-
-    @Test
-    public void testFeedMoneyWholeDollarAmount() {
-
-
-//        double userInput = 6.00;
-//        purchaseProcess = new PurchaseProcess();
-//        ByteArrayInputStream input = new ByteArrayInputStream(String.valueOf(userInput).getBytes());
-//        System.setIn(input);
-//        assertEquals(6.00, userInput);
-    }
-
+        @Test
     public void testHappyPathPurchaseItem() {
         Inventory testInventory = new Inventory();
         testInventory.createInventory("vendingmachine.csv");
@@ -81,7 +58,7 @@ public class PurchaseProcessTest extends TestCase {
         Assert.assertEquals(1.95, purchaseProcess.getCurrentMoney(), 0.001 );
         System.setIn(clearOut);
     }
-
+        @Test
     public void testSadPathPurchaseItem() {
         Inventory testInventory = new Inventory();
         testInventory.createInventory("vendingmachine.csv");
@@ -94,7 +71,7 @@ public class PurchaseProcessTest extends TestCase {
         Assert.assertEquals(3.05, purchaseProcess.getCurrentMoney(), 0 );
         System.setIn(clearOut);
     }
-
+        @Test
     public void testSoldOutPurchaseItem() {
         Inventory testInventory = new Inventory();
         testInventory.createInventory("vendingmachine.csv");
@@ -123,7 +100,6 @@ public class PurchaseProcessTest extends TestCase {
         Assert.assertEquals(1.00, purchaseProcess.getCurrentMoney(), 0.001);
         System.setIn(clearOut);
     }
-
     @Test
     public void testMakeChange() {
         PurchaseProcess testPurchaseProcess = new PurchaseProcess();

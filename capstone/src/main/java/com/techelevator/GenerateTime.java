@@ -4,7 +4,7 @@ import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class GenerateLog {
+public class GenerateTime {
 
     public String logTime(){
         LocalDateTime currentTime = LocalDateTime.now();

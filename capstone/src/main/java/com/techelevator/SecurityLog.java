@@ -1,13 +1,11 @@
 package com.techelevator;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
-import java.lang.reflect.GenericArrayType;
 import java.text.NumberFormat;
 
-public class SecurityLog extends GenerateLog {
+public class SecurityLog extends GenerateTime {
 
 
     public void log(String loggedText, double balance, double endingBalance)  {

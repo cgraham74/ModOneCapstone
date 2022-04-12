@@ -1,14 +1,17 @@
 package com.techelevator;
 
-import javax.swing.text.NumberFormatter;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.NumberFormat;
-import java.util.Formatter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-public class SalesLog extends GenerateLog {
+public class SalesLog extends GenerateTime {
 
         private Map<String, Integer> salesMap = new HashMap<>();
         private NumberFormat formatter = NumberFormat.getCurrencyInstance();
@@ -17,8 +20,21 @@ public class SalesLog extends GenerateLog {
         public SalesLog() {
         }
 
+        public void generateFileName() {
+            try {
+                String newSalesDate = new SimpleDateFormat("MM-dd-yyyy_hh-mm-ss'.log'").format(new Date());
+                Path originalSales = Paths.get("log\\sales.log");
+                Path datesSales = Paths.get("log\\" + newSalesDate);
+                Files.copy(originalSales, datesSales);
+
+            } catch (IOException e) {
+                System.out.println(e);
+            }
+        }
+
         public void readSalesLog() {
-            File file = new File("sales.log");
+            File directory = new File("log");
+            File file = new File("log\\sales.log");
             if (file.exists()) {
                 try (Scanner scanIn = new Scanner(file)) {
                     while (scanIn.hasNextLine()) {
@@ -41,17 +57,15 @@ public class SalesLog extends GenerateLog {
             } else {
                 //Create the file.
                 try {
+
+                    boolean testFilePath = directory.mkdirs();
                     boolean value = file.createNewFile();
-                    if (value) {
-                        System.out.println("Created the file!");
-                    } else {
-                        System.out.println("Heck");
-                    }
+
                 } catch (IOException e) {
                     System.out.println(e);
                 }
             }
-            try (PrintWriter writer = new PrintWriter("sales.log")) {
+            try (PrintWriter writer = new PrintWriter("log\\sales.log")) {
                 writer.print("");
             } catch (FileNotFoundException e) {
                 System.out.println(e);
@@ -64,7 +78,7 @@ public class SalesLog extends GenerateLog {
         public void log(Map<String, Integer> currentSales, Inventory inventory)  {
             readSalesLog();
             currentSales.forEach((key, value) -> salesMap.merge(key, value, Integer :: sum));
-            try (PrintWriter salesOutput = new PrintWriter(new FileOutputStream("sales.log", true))){
+            try (PrintWriter salesOutput = new PrintWriter(new FileOutputStream("log\\sales.log", true))){
                 double totalSales = 0;
                 for (String key : salesMap.keySet()) {
                     salesOutput.print(key + "|" + salesMap.get(key) + "\n");
