@@ -3,10 +3,9 @@ package com.techelevator;
 import com.techelevator.view.Menu;
 import com.techelevator.view.PurchaseMenu;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 public class VendingMachineCLI {
 
@@ -17,9 +16,7 @@ public class VendingMachineCLI {
 	private static final String[] MAIN_MENU_OPTIONS = { MAIN_MENU_OPTION_DISPLAY_ITEMS, MAIN_MENU_OPTION_PURCHASE, EXIT_MENU_OPTION, SALES_REPORT };
 	Inventory inventory = new Inventory();
 	private Menu menu;
-	SalesLog saleLog = new SalesLog();
 	PurchaseMenu purchaseMenu;
-
 
 	public VendingMachineCLI(Menu menu) {
 		this.menu = menu;

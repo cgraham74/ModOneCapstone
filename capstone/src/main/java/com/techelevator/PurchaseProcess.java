@@ -32,15 +32,21 @@ public class PurchaseProcess {
 
     public double feedMoney() {
         Scanner moneyIn = new Scanner(System.in);
-        System.out.println("Please Enter Whole Dollar Amount");
+        String pleaseEnter = "Please Enter Whole Dollar Amount: \r\n" +
+                "Example: (1), (2), (5), (10)";
+        System.out.println(pleaseEnter);
 
         try {
             if (moneyIn.hasNextDouble()) {
                 moneyEntered = moneyIn.nextDouble();
                 if (moneyEntered % 1 == 0) {
-                    currentMoney += moneyEntered;
-                } else {
-                    System.out.println("Please Enter Whole Dollar Amount");
+                    if (moneyEntered == 1 || moneyEntered == 2 || moneyEntered == 5 ||
+                    moneyEntered == 10 || moneyEntered == 20 || moneyEntered == 50 ||
+                    moneyEntered == 100) {
+                        currentMoney += moneyEntered;
+                    } else {
+                        System.out.println(pleaseEnter);
+                    }
                 }
                 System.out.println("Current Money Provided: " + formatter.format(currentMoney));
             }
@@ -98,13 +104,11 @@ public class PurchaseProcess {
         int dime = (int)((currentMoney * 100) % 25) / 10;
         // This is to stop stealing Nickels.
         int nickel = (int)Math.round((((currentMoney * 100) % 25) % 10) / 5);
-        System.out.println("Dispensing Change:");
-        System.out.println("Quarters: " + quarter);
-        System.out.println("Dimes: " + dime);
-        System.out .println("Nickels: " + nickel);
+        System.out.println("Dispensing Change:\r\nQuarters: " + quarter + "\r\nDimes: " + dime +
+                "\r\nNickels: " + nickel);
         currentMoney = 0.00;
-        System.out.println("Amount Remaining: " + formatter.format(currentMoney));
-        System.out.println("Thanks for using the Vendo-Matic 800!");
+        System.out.println("Amount Remaining: " + formatter.format(currentMoney) +
+                "\r\nThanks for using the Vendo-Matic 800!");
     }
 }
 

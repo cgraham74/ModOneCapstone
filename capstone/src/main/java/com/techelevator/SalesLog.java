@@ -19,23 +19,37 @@ public class SalesLog extends GenerateLog {
 
         public void readSalesLog() {
             File file = new File("sales.log");
-            try (Scanner scanIn = new Scanner(file)) {
-                while (scanIn.hasNextLine()) {
-                    String line = scanIn.nextLine();
-                    if (line.contains("Total")) {
-                        String[] totalSales = line.split(":");
-                        String money = totalSales[1].substring(2);
-                        totalGrossSales = Double.parseDouble(money);
+            if (file.exists()) {
+                try (Scanner scanIn = new Scanner(file)) {
+                    while (scanIn.hasNextLine()) {
+                        String line = scanIn.nextLine();
+                        if (line.contains("Total")) {
+                            String[] totalSales = line.split(":");
+                            String money = totalSales[1].substring(2);
+                            totalGrossSales = Double.parseDouble(money);
 
-                    } else {
-                        String[] items = line.split("\\|");
-                        int temp = Integer.parseInt(items[1]);
-                        salesMap.put(items[0], temp);
+                        } else {
+                            String[] items = line.split("\\|");
+                            int temp = Integer.parseInt(items[1]);
+                            salesMap.put(items[0], temp);
+                        }
+
                     }
-
+                } catch (Exception e) {
+                    System.out.println(e);
                 }
-            } catch (Exception e) {
-                System.out.println(e);
+            } else {
+                //Create the file.
+                try {
+                    boolean value = file.createNewFile();
+                    if (value) {
+                        System.out.println("Created the file!");
+                    } else {
+                        System.out.println("Heck");
+                    }
+                } catch (IOException e) {
+                    System.out.println(e);
+                }
             }
             try (PrintWriter writer = new PrintWriter("sales.log")) {
                 writer.print("");
