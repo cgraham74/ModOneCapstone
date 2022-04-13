@@ -11,6 +11,7 @@ public class PurchaseProcessTest extends TestCase {
 
     PurchaseProcess purchaseProcess;
     private ByteArrayOutputStream output;
+    private String salesPath = "log\\sales.log";
 
     @Before
     public void setup() {
@@ -28,7 +29,7 @@ public class PurchaseProcessTest extends TestCase {
 
     @Test
     public void testFeedMoney_floating_point_number_should_be_ZERO() {
-        PurchaseProcess purchaseProcess = new PurchaseProcess();
+        PurchaseProcess purchaseProcess = new PurchaseProcess(salesPath);
         InputStream clearOut = System.in;
         ByteArrayInputStream in = new ByteArrayInputStream("7.32".getBytes());
         System.setIn(in);
@@ -39,7 +40,7 @@ public class PurchaseProcessTest extends TestCase {
 
     @Test
     public void testFeedMoney_Whole_Number_Should_Be_Accepted() {
-        PurchaseProcess purchaseProcess = new PurchaseProcess();
+        PurchaseProcess purchaseProcess = new PurchaseProcess(salesPath);
         InputStream clearOut = System.in;
         ByteArrayInputStream in = new ByteArrayInputStream("5.00".getBytes());
         System.setIn(in);
@@ -52,7 +53,7 @@ public class PurchaseProcessTest extends TestCase {
     public void testHappyPathPurchaseItem() {
         Inventory testInventory = new Inventory();
         testInventory.createInventory("vendingmachine.csv");
-        PurchaseProcess purchaseProcess = new PurchaseProcess();
+        PurchaseProcess purchaseProcess = new PurchaseProcess(salesPath);
         InputStream clearOut = System.in;
         ByteArrayInputStream in = new ByteArrayInputStream("A1".getBytes());
         System.setIn(in);
@@ -66,7 +67,7 @@ public class PurchaseProcessTest extends TestCase {
     public void testSadPathPurchaseItem() {
         Inventory testInventory = new Inventory();
         testInventory.createInventory("vendingmachine.csv");
-        PurchaseProcess purchaseProcess = new PurchaseProcess();
+        PurchaseProcess purchaseProcess = new PurchaseProcess(salesPath);
         InputStream clearOut = System.in;
         ByteArrayInputStream in = new ByteArrayInputStream("Z9".getBytes());
         System.setIn(in);
@@ -80,7 +81,7 @@ public class PurchaseProcessTest extends TestCase {
     public void testSoldOutPurchaseItem() {
         Inventory testInventory = new Inventory();
         testInventory.createInventory("vendingmachine.csv");
-        PurchaseProcess purchaseProcess = new PurchaseProcess();
+        PurchaseProcess purchaseProcess = new PurchaseProcess(salesPath);
         InputStream clearOut = System.in;
         purchaseProcess.setCurrentMoney(7.00);
 
@@ -97,7 +98,7 @@ public class PurchaseProcessTest extends TestCase {
     public void testHappySadPathPurchaseItem() {
         Inventory testInventory = new Inventory();
         testInventory.createInventory("vendingmachine.csv");
-        PurchaseProcess purchaseProcess = new PurchaseProcess();
+        PurchaseProcess purchaseProcess = new PurchaseProcess(salesPath);
         InputStream clearOut = System.in;
         ByteArrayInputStream in = new ByteArrayInputStream("A1".getBytes());
         System.setIn(in);
@@ -109,7 +110,7 @@ public class PurchaseProcessTest extends TestCase {
 
     @Test
     public void testMakeChange() {
-        PurchaseProcess testPurchaseProcess = new PurchaseProcess();
+        PurchaseProcess testPurchaseProcess = new PurchaseProcess(salesPath);
         final ByteArrayOutputStream testingStreams = new ByteArrayOutputStream();
         System.setOut(new PrintStream(testingStreams));
         Inventory testInventory = new Inventory();

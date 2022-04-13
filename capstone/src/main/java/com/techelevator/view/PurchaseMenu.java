@@ -13,12 +13,14 @@ public class PurchaseMenu {
     private Menu menu;
     private Inventory inventory;
     private PurchaseProcess purchaseProcess;
+    private String salesPathLog;
     //</editor-fold>
 
-    public PurchaseMenu(Menu menu, Inventory inventory) {
+    public PurchaseMenu(Menu menu, Inventory inventory, String salesPathLog) {
         this.menu = menu;
         this.inventory = inventory;
-        purchaseProcess = new PurchaseProcess();
+        this.salesPathLog = salesPathLog;
+        purchaseProcess = new PurchaseProcess(salesPathLog);
     }
 
 

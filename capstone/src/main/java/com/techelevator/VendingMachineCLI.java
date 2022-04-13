@@ -3,7 +3,6 @@ package com.techelevator;
 import com.techelevator.view.Menu;
 import com.techelevator.view.PurchaseMenu;
 
-import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -16,10 +15,12 @@ public class VendingMachineCLI {
     private static final String SALES_REPORT = "Sales Report";
     private static final String[] MAIN_MENU_OPTIONS = {MAIN_MENU_OPTION_DISPLAY_ITEMS, MAIN_MENU_OPTION_PURCHASE, EXIT_MENU_OPTION, SALES_REPORT};
     Inventory inventory = new Inventory();
-    SalesLog salesLog = new SalesLog();
+    private String salesFilePath = "log\\sales.log";
+    SalesLog salesLog = new SalesLog(salesFilePath);
     private Menu menu;
     PurchaseMenu purchaseMenu;
     GenerateTime generateTime = new GenerateTime();
+
     //</editor-fold>
 
     public VendingMachineCLI(Menu menu) {
@@ -39,13 +40,13 @@ public class VendingMachineCLI {
 
             } else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
                 // do purchase
-                purchaseMenu = new PurchaseMenu(menu, inventory);
+                purchaseMenu = new PurchaseMenu(menu, inventory, salesFilePath);
                 purchaseMenu.run();
 
             } else if (choice.equals(EXIT_MENU_OPTION)) {
                 break;
             } else if (choice.equals(SALES_REPORT)) {
-                Path salesLogCheck = Paths.get("log\\sales.log");
+                Path salesLogCheck = Paths.get(salesFilePath);
                 if (salesLogCheck.toFile().isFile()) {
                     salesLog.generateFileName();
                 } else {

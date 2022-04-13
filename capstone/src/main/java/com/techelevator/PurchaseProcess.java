@@ -7,7 +7,8 @@ public class PurchaseProcess {
 
     //<editor-fold desc="*DATA MEMBERS*">
     private SecurityLog securityLog = new SecurityLog();
-    private SalesLog salesLog = new SalesLog();
+    private String salesLogPath;
+    private SalesLog salesLog;
     private double currentMoney;
     private double moneyEntered;
     private final double ONE_DOLLAR_BILL = 1.00;
@@ -19,6 +20,7 @@ public class PurchaseProcess {
     private final int DIME = 10;
     private final int NICKEL = 5;
     private final int PERCENT = 100;
+
     NumberFormat formatter = NumberFormat.getCurrencyInstance();
     Map<String, Integer> productSales = new HashMap<>();
 
@@ -27,8 +29,9 @@ public class PurchaseProcess {
         return productSales;
     }
 
-    public PurchaseProcess() {
-        this.currentMoney = currentMoney;
+    public PurchaseProcess(String salesLogPath) {
+        this.salesLogPath = salesLogPath;
+        salesLog = new SalesLog(salesLogPath);
 
     }
 

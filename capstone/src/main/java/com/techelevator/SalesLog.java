@@ -16,15 +16,17 @@ public class SalesLog extends GenerateTime {
     private Map<String, Integer> salesMap = new HashMap<>();
     private NumberFormat formatter = NumberFormat.getCurrencyInstance();
     private double totalGrossSales;
+    private String salesLogPath;
 
-    public SalesLog() {
+    public SalesLog(String salesLogPath) {
+        this.salesLogPath = salesLogPath;
     }
 
 
     public void generateFileName() {
         try {
             String newSalesDate = new SimpleDateFormat("MM-dd-yyyy_hh-mm-ss'.log'").format(new Date());
-            Path originalSales = Paths.get("log\\sales.log");
+            Path originalSales = Paths.get(salesLogPath);
             Path datesSales = Paths.get("log\\" + newSalesDate);
             Files.copy(originalSales, datesSales);
 
@@ -34,7 +36,7 @@ public class SalesLog extends GenerateTime {
     }
 
     public void readSalesLog() {
-        File file = new File("log\\sales.log");
+        File file = new File(salesLogPath);
         if (file.exists()) {
             try (Scanner scanIn = new Scanner(file)) {
                 while (scanIn.hasNextLine()) {
@@ -60,7 +62,7 @@ public class SalesLog extends GenerateTime {
                 System.out.println(e);
             }
         }
-        try (PrintWriter writer = new PrintWriter("log\\sales.log")) {
+        try (PrintWriter writer = new PrintWriter(salesLogPath)) {
             writer.print("");
         } catch (FileNotFoundException e) {
             System.out.println(e);
@@ -72,7 +74,7 @@ public class SalesLog extends GenerateTime {
     public void log(Map<String, Integer> currentSales, Inventory inventory) {
         readSalesLog();
         currentSales.forEach((key, value) -> salesMap.merge(key, value, Integer::sum));
-        try (PrintWriter salesOutput = new PrintWriter(new FileOutputStream("log\\sales.log", true))) {
+        try (PrintWriter salesOutput = new PrintWriter(new FileOutputStream(salesLogPath, true))) {
             double totalSales = 0;
             for (String key : salesMap.keySet()) {
                 salesOutput.print(key + "|" + salesMap.get(key) + "\n");
