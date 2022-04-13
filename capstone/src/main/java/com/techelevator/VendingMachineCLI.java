@@ -19,9 +19,11 @@ public class VendingMachineCLI {
     SalesLog salesLog = new SalesLog();
     private Menu menu;
     PurchaseMenu purchaseMenu;
+    GenerateTime generateTime = new GenerateTime();
     //</editor-fold>
 
     public VendingMachineCLI(Menu menu) {
+        generateTime.logFolder();
         this.menu = menu;
         inventory.createInventory("vendingmachine.csv");
     }

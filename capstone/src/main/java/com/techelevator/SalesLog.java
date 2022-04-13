@@ -34,7 +34,6 @@ public class SalesLog extends GenerateTime {
     }
 
     public void readSalesLog() {
-        File directory = new File("log");
         File file = new File("log\\sales.log");
         if (file.exists()) {
             try (Scanner scanIn = new Scanner(file)) {
@@ -44,24 +43,19 @@ public class SalesLog extends GenerateTime {
                         String[] totalSales = line.split(":");
                         String money = totalSales[1].substring(2);
                         totalGrossSales = Double.parseDouble(money);
-
                     } else {
                         String[] items = line.split("\\|");
                         int temp = Integer.parseInt(items[1]);
                         salesMap.put(items[0], temp);
                     }
-
                 }
             } catch (Exception e) {
                 System.out.println(e);
             }
         } else {
-            //Create the file.
+            //Creating the file.
             try {
-
-                boolean testFilePath = directory.mkdirs();
                 boolean value = file.createNewFile();
-
             } catch (IOException e) {
                 System.out.println(e);
             }
@@ -91,7 +85,6 @@ public class SalesLog extends GenerateTime {
             salesOutput.print("Total Sales: " + formatter.format(totalSales + totalGrossSales));
         } catch (FileNotFoundException e) {
             System.out.println(e);
-
         }
     }
 }
