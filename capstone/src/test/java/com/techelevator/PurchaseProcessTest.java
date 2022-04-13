@@ -25,6 +25,7 @@ public class PurchaseProcessTest extends TestCase {
 
     public void testSetCurrentMoney() {
     }
+
     @Test
     public void testFeedMoney_floating_point_number_should_be_ZERO() {
         PurchaseProcess purchaseProcess = new PurchaseProcess();
@@ -35,6 +36,7 @@ public class PurchaseProcessTest extends TestCase {
         Assert.assertEquals(0.00, purchaseProcess.getCurrentMoney(), 0);
         System.setIn(clearOut);
     }
+
     @Test
     public void testFeedMoney_Whole_Number_Should_Be_Accepted() {
         PurchaseProcess purchaseProcess = new PurchaseProcess();
@@ -45,7 +47,8 @@ public class PurchaseProcessTest extends TestCase {
         Assert.assertEquals(5.00, purchaseProcess.getCurrentMoney(), 0);
         System.setIn(clearOut);
     }
-        @Test
+
+    @Test
     public void testHappyPathPurchaseItem() {
         Inventory testInventory = new Inventory();
         testInventory.createInventory("vendingmachine.csv");
@@ -55,10 +58,11 @@ public class PurchaseProcessTest extends TestCase {
         System.setIn(in);
         purchaseProcess.setCurrentMoney(5.00);
         purchaseProcess.purchaseItem(testInventory);
-        Assert.assertEquals(1.95, purchaseProcess.getCurrentMoney(), 0.001 );
+        Assert.assertEquals(1.95, purchaseProcess.getCurrentMoney(), 0.001);
         System.setIn(clearOut);
     }
-        @Test
+
+    @Test
     public void testSadPathPurchaseItem() {
         Inventory testInventory = new Inventory();
         testInventory.createInventory("vendingmachine.csv");
@@ -68,10 +72,11 @@ public class PurchaseProcessTest extends TestCase {
         System.setIn(in);
         purchaseProcess.setCurrentMoney(3.05);
         purchaseProcess.purchaseItem(testInventory);
-        Assert.assertEquals(3.05, purchaseProcess.getCurrentMoney(), 0 );
+        Assert.assertEquals(3.05, purchaseProcess.getCurrentMoney(), 0);
         System.setIn(clearOut);
     }
-        @Test
+
+    @Test
     public void testSoldOutPurchaseItem() {
         Inventory testInventory = new Inventory();
         testInventory.createInventory("vendingmachine.csv");
@@ -84,9 +89,10 @@ public class PurchaseProcessTest extends TestCase {
             System.setIn(in);
             purchaseProcess.purchaseItem(testInventory);
         }
-        Assert.assertEquals(3.25, purchaseProcess.getCurrentMoney(), 0.001 );
+        Assert.assertEquals(3.25, purchaseProcess.getCurrentMoney(), 0.001);
         System.setIn(clearOut);
     }
+
     @Test
     public void testHappySadPathPurchaseItem() {
         Inventory testInventory = new Inventory();
@@ -100,6 +106,7 @@ public class PurchaseProcessTest extends TestCase {
         Assert.assertEquals(1.00, purchaseProcess.getCurrentMoney(), 0.001);
         System.setIn(clearOut);
     }
+
     @Test
     public void testMakeChange() {
         PurchaseProcess testPurchaseProcess = new PurchaseProcess();
@@ -109,9 +116,9 @@ public class PurchaseProcessTest extends TestCase {
         testPurchaseProcess.setCurrentMoney(1.00);
         testPurchaseProcess.makeChange(testInventory);
 
-                //Throws a number exception and we don't know why it's printing
+        //Throws a number exception and we don't know why it's printing
         assertEquals("Dispensing Change:\r\n" +
                 "Quarters: 4\r\nDimes: 0\r\nNickels: 0\r\nAmount Remaining: $0.00\r\n" +
                 "Thanks for using the Vendo-Matic 800!", testingStreams.toString().trim());
-  }
+    }
 }

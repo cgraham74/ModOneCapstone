@@ -5,6 +5,7 @@ import com.techelevator.PurchaseProcess;
 
 public class PurchaseMenu {
 
+    //<editor-fold desc="*DATA MEMBERS*">
     private static final String FEED_MONEY = "Feed Money";
     private static final String SELECT_PRODUCT = "Select Product";
     private static final String FINISH_TRANSACTION = "Finish Transaction";
@@ -12,14 +13,14 @@ public class PurchaseMenu {
     private Menu menu;
     private Inventory inventory;
     private PurchaseProcess purchaseProcess;
+    //</editor-fold>
 
     public PurchaseMenu(Menu menu, Inventory inventory) {
         this.menu = menu;
         this.inventory = inventory;
         purchaseProcess = new PurchaseProcess();
-
-
     }
+
 
     public void run() {
         while (true) {
@@ -27,7 +28,6 @@ public class PurchaseMenu {
 
             if (choice.equals(FEED_MONEY)) {
                 purchaseProcess.feedMoney();
-
 
             } else if (choice.equals(SELECT_PRODUCT)) {
                 inventory.displayAvailableProducts();

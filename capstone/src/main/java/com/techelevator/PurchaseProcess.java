@@ -5,16 +5,33 @@ import java.util.*;
 
 public class PurchaseProcess {
 
+    //<editor-fold desc="*DATA MEMBERS*">
     private SecurityLog securityLog = new SecurityLog();
     private SalesLog salesLog = new SalesLog();
     private double currentMoney;
     private double moneyEntered;
+    private final double ONE_DOLLAR_BILL = 1.00;
+    private final double TWO_DOLLAR_BILL = 2.00;
+    private final double FIVE_DOLLAR_BILL = 5.00;
+    private final double TEN_DOLLAR_BILL = 10.00;
+    private final int MAX_COUNT = 5;
+    private final int QUARTER = 25;
+    private final int DIME = 10;
+    private final int NICKEL = 5;
+    private final int PERCENT = 100;
     NumberFormat formatter = NumberFormat.getCurrencyInstance();
     Map<String, Integer> productSales = new HashMap<>();
 
+    //</editor-fold>
     public Map<String, Integer> getProductSales() {
         return productSales;
     }
+
+    public PurchaseProcess() {
+        this.currentMoney = currentMoney;
+
+    }
+
 
     public double getCurrentMoney() {
         return currentMoney;
@@ -22,11 +39,6 @@ public class PurchaseProcess {
 
     public void setCurrentMoney(double currentMoney) {
         this.currentMoney = currentMoney;
-    }
-
-    public PurchaseProcess() {
-        this.currentMoney = currentMoney;
-
     }
 
     public double feedMoney() {
@@ -39,9 +51,8 @@ public class PurchaseProcess {
             if (moneyIn.hasNextDouble()) {
                 moneyEntered = moneyIn.nextDouble();
                 if (moneyEntered % 1 == 0) {
-                    if (moneyEntered == 1 || moneyEntered == 2 || moneyEntered == 5 ||
-                    moneyEntered == 10 || moneyEntered == 20 || moneyEntered == 50 ||
-                    moneyEntered == 100) {
+                    if (moneyEntered == ONE_DOLLAR_BILL || moneyEntered == TWO_DOLLAR_BILL ||
+                            moneyEntered == FIVE_DOLLAR_BILL || moneyEntered == TEN_DOLLAR_BILL) {
                         currentMoney += moneyEntered;
                     } else {
                         System.out.println(pleaseEnter);
@@ -77,7 +88,7 @@ public class PurchaseProcess {
                         System.out.println("Balance: " + formatter.format(currentMoney));
                         System.out.println(soundEffects);
                         securityLog.log(vp.getProductName(), moneyBeforeDecrement, currentMoney);
-                        productSales.put(vp.getProductName(), (5 - vp.getProductCount()));
+                        productSales.put(vp.getProductName(), (MAX_COUNT - vp.getProductCount()));
 
                     } else {
                         System.out.println("Insufficient Funds! \nYour current funds are: "
@@ -99,10 +110,10 @@ public class PurchaseProcess {
     public void makeChange(Inventory inventory) {
         securityLog.log("GIVE CHANGE", currentMoney, 0.00);
         salesLog.log(productSales, inventory);
-        int quarter = (int)(currentMoney * 100) / 25;
-        int dime = (int)((currentMoney * 100) % 25) / 10;
+        int quarter = (int) (currentMoney * PERCENT) / QUARTER;
+        int dime = (int) ((currentMoney * PERCENT) % QUARTER) / DIME;
         // This is to stop stealing Nickels.
-        int nickel = (int)Math.round((((currentMoney * 100) % 25) % 10) / 5);
+        int nickel = (int) Math.round((((currentMoney * PERCENT) % QUARTER) % DIME) / NICKEL);
         System.out.println("Dispensing Change:\r\nQuarters: " + quarter + "\r\nDimes: " + dime +
                 "\r\nNickels: " + nickel);
         currentMoney = 0.00;

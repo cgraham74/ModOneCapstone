@@ -7,10 +7,11 @@ import java.util.List;
 public class Inventory {
     Product products;
 
-        private List<Product> vendingProducts = new ArrayList<>();
+    private List<Product> vendingProducts = new ArrayList<>();
 
     public Inventory() {
     }
+
 
     public List<Product> getVendingProducts() {
         return vendingProducts;
@@ -40,11 +41,10 @@ public class Inventory {
         }
     }
 
-    public String displayItemCount (int amount) {
+    public String displayItemCount(int amount) {
         if (amount == 0) {
             return "SOLD OUT";
-        }
-        else {
+        } else {
             return "(" + amount + ")";
         }
     }

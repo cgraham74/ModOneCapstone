@@ -9,6 +9,7 @@ import java.nio.file.Paths;
 
 public class VendingMachineCLI {
 
+    //<editor-fold desc="*DATA MEMBERS">
     private static final String MAIN_MENU_OPTION_DISPLAY_ITEMS = "Display Vending Machine Items";
     private static final String MAIN_MENU_OPTION_PURCHASE = "Purchase";
     private static final String EXIT_MENU_OPTION = "Exit";
@@ -18,13 +19,13 @@ public class VendingMachineCLI {
     SalesLog salesLog = new SalesLog();
     private Menu menu;
     PurchaseMenu purchaseMenu;
-
-
+    //</editor-fold>
 
     public VendingMachineCLI(Menu menu) {
         this.menu = menu;
         inventory.createInventory("vendingmachine.csv");
     }
+
 
     public void run() {
         while (true) {

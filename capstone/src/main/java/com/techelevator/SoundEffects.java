@@ -8,6 +8,7 @@ public class SoundEffects {
         this.product = product;
     }
 
+
     @Override
     public String toString() {
         if (product.getProductType().equalsIgnoreCase("chip")) {
