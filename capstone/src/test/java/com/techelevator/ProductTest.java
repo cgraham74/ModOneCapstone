@@ -10,6 +10,6 @@ public class ProductTest extends TestCase {
     @Test
     public void test_product_constructor(){
         boolean testingProductConstructor = testProduct.toString().equals("A2 Cloud Popcorn $3.67 chip");
-        Assert.assertTrue("This is true", testingProductConstructor);
+        Assert.assertTrue("Created a new product = (Should be A2 Cloud Popcorn $3.67 chip)", testingProductConstructor);
     }
 }
