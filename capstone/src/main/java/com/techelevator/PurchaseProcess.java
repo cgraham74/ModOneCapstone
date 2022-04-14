@@ -117,10 +117,10 @@ public class PurchaseProcess {
         int dime = (int) ((currentMoney * PERCENT) % QUARTER) / DIME;
         // This is to stop stealing Nickels.
         int nickel = (int) Math.round((((currentMoney * PERCENT) % QUARTER) % DIME) / NICKEL);
-        System.out.println("Dispensing Change:\r\nQuarters: " + quarter + "\r\nDimes: " + dime +
-                "\r\nNickels: " + nickel);
+        System.out.println("Dispensing Change: " + formatter.format(currentMoney) + "\r\n" + "Quarters: " + quarter +
+                "\r\nDimes: " + dime + "\r\nNickels: " + nickel);
         currentMoney = 0.00;
-        System.out.println("Amount Remaining: " + formatter.format(currentMoney) +
+        System.out.println("Vending Machine Balance: " + formatter.format(currentMoney) +
                 "\r\nThanks for using the Vendo-Matic 800!");
     }
 }
