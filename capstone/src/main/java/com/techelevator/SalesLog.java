@@ -11,11 +11,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-public class SalesLog extends GenerateTime {
+public class SalesLog extends GenerateLogTime {
 
     private Map<String, Integer> salesMap = new HashMap<>();
     private NumberFormat formatter = NumberFormat.getCurrencyInstance();
     private double totalGrossSales;
+    private String logPath = "log\\";
     private String salesLogPath;
 
     public SalesLog(String salesLogPath) {
@@ -27,7 +28,7 @@ public class SalesLog extends GenerateTime {
         try {
             String newSalesDate = new SimpleDateFormat("MM-dd-yyyy_hh-mm-ss'.log'").format(new Date());
             Path originalSales = Paths.get(salesLogPath);
-            Path datesSales = Paths.get("log\\" + newSalesDate);
+            Path datesSales = Paths.get(logPath + newSalesDate);
             Files.copy(originalSales, datesSales);
 
         } catch (IOException e) {
@@ -57,7 +58,7 @@ public class SalesLog extends GenerateTime {
         } else {
             //Creating the file.
             try {
-                boolean value = file.createNewFile();
+                Files.createFile(Path.of(salesLogPath));
             } catch (IOException e) {
                 System.out.println(e);
             }

@@ -16,17 +16,19 @@ public class VendingMachineCLI {
     private static final String[] MAIN_MENU_OPTIONS = {MAIN_MENU_OPTION_DISPLAY_ITEMS, MAIN_MENU_OPTION_PURCHASE, EXIT_MENU_OPTION, SALES_REPORT};
     Inventory inventory = new Inventory();
     private String salesFilePath = "log\\sales.log";
+    private String vendingMachineCSV = "vendingmachine.csv";
+    private Path logPath = Paths.get("log");
     SalesLog salesLog = new SalesLog(salesFilePath);
     private Menu menu;
     PurchaseMenu purchaseMenu;
-    GenerateTime generateTime = new GenerateTime();
+    GenerateLogTime generateLogTime = new GenerateLogTime();
 
     //</editor-fold>
 
     public VendingMachineCLI(Menu menu) {
-        generateTime.logFolder();
+        generateLogTime.logFolder(logPath);
         this.menu = menu;
-        inventory.createInventory("vendingmachine.csv");
+        inventory.createInventory(vendingMachineCSV);
     }
 
 

@@ -1,14 +1,22 @@
 package com.techelevator;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class GenerateTime {
+public class GenerateLogTime {
 
-    public void logFolder() {
-        File directory = new File("log");
-        boolean testDirectory = directory.mkdir();
+
+    public void logFolder(Path path) {
+        if (!(Files.exists(path))) {
+            try {
+                Files.createDirectory(path);
+            } catch (IOException e) {
+                System.out.println(e);
+            }
+        }
     }
 
     public String logTime() {

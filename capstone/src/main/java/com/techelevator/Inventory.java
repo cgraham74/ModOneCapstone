@@ -24,8 +24,7 @@ public class Inventory {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] items = line.split("\\|");
-                double price = Double.parseDouble(items[2]);
-                products = new Product(items[0], items[1], price, items[3]);
+                products = new Product(items[0], items[1], Double.parseDouble(items[2]), items[3]);
                 vendingProducts.add(products);
             }
         } catch (IOException e) {

@@ -124,4 +124,3 @@ public class PurchaseProcess {
                 "\r\nThanks for using the Vendo-Matic 800!");
     }
 }
-
