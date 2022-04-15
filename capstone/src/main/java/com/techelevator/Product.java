@@ -64,7 +64,6 @@ public class Product {
 
     }
 
-
     @Override
     public String toString() {
         NumberFormat formatter = NumberFormat.getCurrencyInstance();

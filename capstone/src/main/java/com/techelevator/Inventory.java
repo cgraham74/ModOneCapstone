@@ -1,12 +1,13 @@
 package com.techelevator;
 
 import java.io.*;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Inventory {
     Product products;
-
+    NumberFormat formatter = NumberFormat.getCurrencyInstance();
     private List<Product> vendingProducts = new ArrayList<>();
 
     public Inventory() {
@@ -35,7 +36,7 @@ public class Inventory {
     public void displayAvailableProducts() {
 
         for (Product product : vendingProducts) {
-            System.out.println(product.toString() + " " + displayItemCount(product.getProductCount()));
+            System.out.printf("%-3s%-20s%-8s%-8s(%s)\n", product.getProductId(), product.getProductName(), formatter.format(product.getProductPrice()), product.getProductType(),displayItemCount(product.getProductCount()));
 
         }
     }
@@ -44,7 +45,7 @@ public class Inventory {
         if (amount == 0) {
             return "SOLD OUT";
         } else {
-            return "(" + amount + ")";
+            return "" + amount;
         }
     }
 }

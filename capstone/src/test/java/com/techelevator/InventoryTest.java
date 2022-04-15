@@ -9,7 +9,6 @@ import java.util.List;
 
 public class InventoryTest extends TestCase {
     Inventory testInventory = new Inventory();
-    //Product testProduct;
     private String filePath = "vendingmachine.csv";
 
     @Test
@@ -31,17 +30,12 @@ public class InventoryTest extends TestCase {
     }
 
     @Test
-    public void testDisplayAvailableProducts() {
-
-    }
-
-    @Test
     public void testDisplayItemCountSoldOut() {
         Assert.assertEquals("SOLD OUT", testInventory.displayItemCount(0));
     }
 
     @Test
     public void testDisplayItemCountWithValue() {
-        Assert.assertEquals("(3)", testInventory.displayItemCount(3));
+        Assert.assertEquals("3", testInventory.displayItemCount(3));
     }
 }
