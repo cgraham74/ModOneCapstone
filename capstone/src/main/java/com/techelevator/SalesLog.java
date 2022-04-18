@@ -25,14 +25,23 @@ public class SalesLog extends GenerateLogTime {
 
 
     public void generateFileName() {
-        try {
-            String newSalesDate = new SimpleDateFormat("MM-dd-yyyy_hh-mm-ss'.log'").format(new Date());
-            Path originalSales = Paths.get(salesLogPath);
-            Path datesSales = Paths.get(logPath + newSalesDate);
-            Files.copy(originalSales, datesSales);
+        int num = 1;
+        String newReportDate = new SimpleDateFormat("MM-dd-yyyy").format(new Date());
+        String reportFileName = logPath + "report-" + newReportDate + ".log";
+        File reportFile = new File(reportFileName);
+        while (reportFile.exists()) {
+            reportFileName = logPath + "report-" + newReportDate + " (" + num++ + ").log";
+            reportFile = new File(reportFileName);
+        }
+        if (!reportFile.exists()) {
+            try {
+                Path originalSales = Paths.get(salesLogPath);
+                Path datesSales = Paths.get(reportFileName);
+                Files.copy(originalSales, datesSales);
 
-        } catch (IOException e) {
-            System.out.println(e);
+            } catch (IOException e) {
+                System.out.println(e);
+            }
         }
     }
 

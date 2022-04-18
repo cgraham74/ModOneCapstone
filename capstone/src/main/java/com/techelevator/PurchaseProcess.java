@@ -1,5 +1,6 @@
 package com.techelevator;
 
+import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.util.*;
 
@@ -91,7 +92,8 @@ public class PurchaseProcess {
                         SoundEffects soundEffects = new SoundEffects(vp);
                         System.out.println("Balance: " + formatter.format(currentMoney));
                         System.out.println(soundEffects);
-                        securityLog.log(vp.getProductName(), moneyBeforeDecrement, currentMoney);
+                        securityLog.log(vp.getProductName() + " $" + vp.getProductPrice(),
+                                moneyBeforeDecrement, currentMoney);
                         productSales.put(vp.getProductName(), (MAX_COUNT - vp.getProductCount()));
 
                     } else {
@@ -115,19 +117,20 @@ public class PurchaseProcess {
         securityLog.log("GIVE CHANGE", currentMoney, 0.00);
         salesLog.log(productSales, inventory);
         double makeChange = currentMoney * PERCENT;
-        int quarter = (int) makeChange / QUARTER;
-        makeChange = makeChange - (QUARTER * quarter);
-        int dime = (int)makeChange / DIME;
-        makeChange = makeChange - (DIME * dime);
-        int nickel = (int) makeChange / NICKEL;
-        makeChange = makeChange - (NICKEL * nickel);
-        System.out.println("Dispensing Change: " + formatter.format(currentMoney) + "\r\n" + "Quarters: " + quarter +
-                "\r\nDimes: " + dime + "\r\nNickels: " + nickel);
+        int numberOfQuarters = (int) makeChange / QUARTER;
+        makeChange = Math.round(makeChange - (QUARTER * numberOfQuarters));
+        int numberOfDimes = (int) makeChange / DIME;
+        makeChange = Math.round(makeChange - (DIME * numberOfDimes));
+        int numberOfNickels = (int) makeChange / NICKEL;
+        makeChange = Math.round(makeChange - (NICKEL * numberOfNickels));
+        System.out.println("Dispensing Change: " + formatter.format(currentMoney) + "\r\n" + "Quarters: " + numberOfQuarters +
+                "\r\nDimes: " + numberOfDimes + "\r\nNickels: " + numberOfNickels);
         System.out.println("Vending Machine Balance: " + formatter.format(makeChange) +
                 "\r\nThanks for using the Vendo-Matic 800!");
         //returning the string so that this method can be tested
-        return "Dispensing Change: " + formatter.format(currentMoney) + "\r\n" + "Quarters: " + quarter +
-                "\r\nDimes: " + dime + "\r\nNickels: " + nickel +"\r\n" +"Vending Machine Balance: " + formatter.format(makeChange) +
+        return "Dispensing Change: " + formatter.format(currentMoney) + "\r\n" + "Quarters: " + numberOfQuarters +
+                "\r\nDimes: " + numberOfDimes + "\r\nNickels: " + numberOfNickels +"\r\n" +
+                "Vending Machine Balance: " + formatter.format(makeChange) +
                 "\r\nThanks for using the Vendo-Matic 800!";
     }
 }

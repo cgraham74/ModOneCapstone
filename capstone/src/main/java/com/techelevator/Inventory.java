@@ -34,10 +34,11 @@ public class Inventory {
     }
 
     public void displayAvailableProducts() {
-
+        System.out.printf("%-3s%-20s%-8s%-8s%s", "ID", "NAME", "PRICE", "TYPE", "AMOUNT\n");
         for (Product product : vendingProducts) {
-            System.out.printf("%-3s%-20s%-8s%-8s(%s)\n", product.getProductId(), product.getProductName(), formatter.format(product.getProductPrice()), product.getProductType(),displayItemCount(product.getProductCount()));
-
+            System.out.printf("%-3s%-20s%-8s%-8s(%s)\n", product.getProductId(),
+                    product.getProductName(), formatter.format(product.getProductPrice()),
+                    product.getProductType(),displayItemCount(product.getProductCount()));
         }
     }
 

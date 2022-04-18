@@ -12,7 +12,8 @@ public class SecurityLog extends GenerateLogTime {
     public void log(String loggedText, double balance, double endingBalance) {
         NumberFormat format = NumberFormat.getCurrencyInstance();
         try (PrintWriter securityOutput = new PrintWriter(new FileOutputStream(securityLogPath, true))) {
-            securityOutput.print(logTime() + " " + loggedText + " " + format.format(balance) + " " + format.format(endingBalance) + "\n");
+            securityOutput.print(logTime() + " -- " + loggedText + " -- BALANCE (" + format.format(balance) +
+                    ") -> ENDING BALANCE (" + format.format(endingBalance) + ")\n");
         } catch (FileNotFoundException e) {
             System.out.println(e);
         }

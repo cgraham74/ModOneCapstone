@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 
 public class PurchaseProcessTest extends TestCase {
 
@@ -91,8 +92,6 @@ public class PurchaseProcessTest extends TestCase {
 
     @Test
     public void testMakeChange() {
-//        final ByteArrayOutputStream testingStreams = new ByteArrayOutputStream();
-//        System.setOut(new PrintStream(testingStreams));
         purchaseProcess.setCurrentMoney(1.00);
         String testResults = purchaseProcess.makeChange(testInventory);
         assertEquals("Dispensing Change: $1.00\r\n" +
@@ -107,5 +106,24 @@ public class PurchaseProcessTest extends TestCase {
         assertEquals("Dispensing Change: $1.20\r\n" +
                 "Quarters: 4\r\nDimes: 2\r\nNickels: 0\r\nVending Machine Balance: $0.00\r\n" +
                 "Thanks for using the Vendo-Matic 800!", testResults);
+    }
+    @Test
+    public void testMakeChangeTwoPopcornsAndACola() {
+        testInventory.createInventory("vendingmachine.csv");
+        InputStream clearOut = System.in;
+        purchaseProcess.setCurrentMoney(10.00);
+        for (int i = 0; i < 2; i++) {
+            ByteArrayInputStream in = new ByteArrayInputStream("a4".getBytes());
+            System.setIn(in);
+            purchaseProcess.purchaseItem(testInventory);
+        }
+        ByteArrayInputStream cola = new ByteArrayInputStream("c2".getBytes());
+        System.setIn(cola);
+        purchaseProcess.purchaseItem(testInventory);
+        String testResults = purchaseProcess.makeChange(testInventory);
+        assertEquals("Dispensing Change: $1.20\r\n" +
+                "Quarters: 4\r\nDimes: 2\r\nNickels: 0\r\nVending Machine Balance: $0.00\r\n" +
+                "Thanks for using the Vendo-Matic 800!", testResults);
+        System.setIn(clearOut);
     }
 }
