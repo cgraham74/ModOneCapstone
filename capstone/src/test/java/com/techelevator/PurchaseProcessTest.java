@@ -6,7 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 
 public class PurchaseProcessTest extends TestCase {
 
@@ -107,6 +106,7 @@ public class PurchaseProcessTest extends TestCase {
                 "Quarters: 4\r\nDimes: 2\r\nNickels: 0\r\nVending Machine Balance: $0.00\r\n" +
                 "Thanks for using the Vendo-Matic 800!", testResults);
     }
+
     @Test
     public void testMakeChangeTwoPopcornsAndACola() {
         testInventory.createInventory("vendingmachine.csv");

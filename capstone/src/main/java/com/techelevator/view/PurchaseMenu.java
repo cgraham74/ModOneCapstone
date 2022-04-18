@@ -25,19 +25,23 @@ public class PurchaseMenu {
 
 
     public void run() {
+        purchaseLoop:
         while (true) {
             String choice = (String) menu.getChoiceFromOptions(PURCHASE_MENU_DISPLAY);
 
-            if (choice.equals(FEED_MONEY)) {
-                purchaseProcess.feedMoney();
+            switch (choice) {
+                case FEED_MONEY:
+                    purchaseProcess.feedMoney();
 
-            } else if (choice.equals(SELECT_PRODUCT)) {
-                inventory.displayAvailableProducts();
-                purchaseProcess.purchaseItem(inventory);
+                    break;
+                case SELECT_PRODUCT:
+                    inventory.displayAvailableProducts();
+                    purchaseProcess.purchaseItem(inventory);
 
-            } else if (choice.equals(FINISH_TRANSACTION)) {
-                purchaseProcess.makeChange(inventory);
-                break;
+                    break;
+                case FINISH_TRANSACTION:
+                    purchaseProcess.makeChange(inventory);
+                    break purchaseLoop;
             }
         }
     }

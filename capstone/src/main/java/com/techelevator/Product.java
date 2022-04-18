@@ -13,6 +13,23 @@ public class Product {
     private final int MAX_INVENTORY_COUNT = 5;
     //</editor-fold>
 
+    public Product(String productId, String productName, double productPrice, String productType) {
+        this.productId = productId;
+        this.productName = productName;
+        this.productPrice = productPrice;
+        this.productType = productType;
+        this.productCount = MAX_INVENTORY_COUNT;
+
+    }
+
+
+    @Override
+    public String toString() {
+        NumberFormat formatter = NumberFormat.getCurrencyInstance();
+        return productId + " " + productName + " "
+                + formatter.format(productPrice) + " " + productType;
+    }
+
     //<editor-fold desc="*GETTERS & SETTERS">
     public String getProductId() {
         return productId;
@@ -54,20 +71,4 @@ public class Product {
         this.productCount = productCount;
     }
     //</editor-fold>
-
-    public Product(String productId, String productName, double productPrice, String productType) {
-        this.productId = productId;
-        this.productName = productName;
-        this.productPrice = productPrice;
-        this.productType = productType;
-        this.productCount = MAX_INVENTORY_COUNT;
-
-    }
-
-    @Override
-    public String toString() {
-        NumberFormat formatter = NumberFormat.getCurrencyInstance();
-        return productId + " " + productName + " "
-                + formatter.format(productPrice) + " " + productType;
-    }
 }

@@ -129,7 +129,7 @@ public class PurchaseProcess {
                 "\r\nThanks for using the Vendo-Matic 800!");
         //returning the string so that this method can be tested
         return "Dispensing Change: " + formatter.format(currentMoney) + "\r\n" + "Quarters: " + numberOfQuarters +
-                "\r\nDimes: " + numberOfDimes + "\r\nNickels: " + numberOfNickels +"\r\n" +
+                "\r\nDimes: " + numberOfDimes + "\r\nNickels: " + numberOfNickels + "\r\n" +
                 "Vending Machine Balance: " + formatter.format(makeChange) +
                 "\r\nThanks for using the Vendo-Matic 800!";
     }

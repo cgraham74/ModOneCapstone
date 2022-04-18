@@ -33,27 +33,32 @@ public class VendingMachineCLI {
 
 
     public void run() {
+        mainLoop:
         while (true) {
             String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
 
-            if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
-                // display vending machine items
-                inventory.displayAvailableProducts();
+            switch (choice) {
+                case MAIN_MENU_OPTION_DISPLAY_ITEMS:
+                    // display vending machine items
+                    inventory.displayAvailableProducts();
 
-            } else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
-                // do purchase
-                purchaseMenu = new PurchaseMenu(menu, inventory, salesFilePath);
-                purchaseMenu.run();
+                    break;
+                case MAIN_MENU_OPTION_PURCHASE:
+                    // do purchase
+                    purchaseMenu = new PurchaseMenu(menu, inventory, salesFilePath);
+                    purchaseMenu.run();
 
-            } else if (choice.equals(EXIT_MENU_OPTION)) {
-                break;
-            } else if (choice.equals(SALES_REPORT)) {
-                Path salesLogCheck = Paths.get(salesFilePath);
-                if (salesLogCheck.toFile().isFile()) {
-                    salesLog.generateFileName();
-                } else {
-                    System.out.println("Sales Log is Empty!");
-                }
+                    break;
+                case EXIT_MENU_OPTION:
+                    break mainLoop;
+                case SALES_REPORT:
+                    Path salesLogCheck = Paths.get(salesFilePath);
+                    if (salesLogCheck.toFile().isFile()) {
+                        salesLog.generateFileName();
+                    } else {
+                        System.out.println("Sales Log is Empty!");
+                    }
+                    break;
             }
         }
     }
