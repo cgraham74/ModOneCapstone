@@ -91,13 +91,21 @@ public class PurchaseProcessTest extends TestCase {
 
     @Test
     public void testMakeChange() {
-        final ByteArrayOutputStream testingStreams = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(testingStreams));
+//        final ByteArrayOutputStream testingStreams = new ByteArrayOutputStream();
+//        System.setOut(new PrintStream(testingStreams));
         purchaseProcess.setCurrentMoney(1.00);
-        purchaseProcess.makeChange(testInventory);
-
+        String testResults = purchaseProcess.makeChange(testInventory);
         assertEquals("Dispensing Change: $1.00\r\n" +
                 "Quarters: 4\r\nDimes: 0\r\nNickels: 0\r\nVending Machine Balance: $0.00\r\n" +
-                "Thanks for using the Vendo-Matic 800!", testingStreams.toString().trim());
+                "Thanks for using the Vendo-Matic 800!", testResults);
+    }
+
+    @Test
+    public void testMakeChange120() {
+        purchaseProcess.setCurrentMoney(1.20);
+        String testResults = purchaseProcess.makeChange(testInventory);
+        assertEquals("Dispensing Change: $1.20\r\n" +
+                "Quarters: 4\r\nDimes: 2\r\nNickels: 0\r\nVending Machine Balance: $0.00\r\n" +
+                "Thanks for using the Vendo-Matic 800!", testResults);
     }
 }

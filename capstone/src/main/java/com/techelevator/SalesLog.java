@@ -42,11 +42,7 @@ public class SalesLog extends GenerateLogTime {
             try (Scanner scanIn = new Scanner(file)) {
                 while (scanIn.hasNextLine()) {
                     String line = scanIn.nextLine();
-                    if (line.contains("Total")) {
-                        String[] totalSales = line.split(":");
-                        String money = totalSales[1].substring(2);
-                        totalGrossSales = Double.parseDouble(money);
-                    } else {
+                    if (line.contains("|")) {
                         String[] items = line.split("\\|");
                         int temp = Integer.parseInt(items[1]);
                         salesMap.put(items[0], temp);
@@ -85,7 +81,7 @@ public class SalesLog extends GenerateLogTime {
                     }
                 }
             }
-            salesOutput.print("Total Sales: " + formatter.format(totalSales + totalGrossSales));
+            salesOutput.print("Total Sales: " + formatter.format(totalSales));
         } catch (FileNotFoundException e) {
             System.out.println(e);
         }

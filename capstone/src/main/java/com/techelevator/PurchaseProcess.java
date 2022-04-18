@@ -21,6 +21,7 @@ public class PurchaseProcess {
     private final int NICKEL = 5;
     private final int PERCENT = 100;
 
+
     NumberFormat formatter = NumberFormat.getCurrencyInstance();
     Map<String, Integer> productSales = new HashMap<>();
 
@@ -110,17 +111,23 @@ public class PurchaseProcess {
         }
     }
 
-    public void makeChange(Inventory inventory) {
+    public String makeChange(Inventory inventory) {
         securityLog.log("GIVE CHANGE", currentMoney, 0.00);
         salesLog.log(productSales, inventory);
-        int quarter = (int) (currentMoney * PERCENT) / QUARTER;
-        int dime = (int) ((currentMoney * PERCENT) % QUARTER) / DIME;
-        // This is to stop stealing Nickels.
-        int nickel = (int) Math.round((((currentMoney * PERCENT) % QUARTER) % DIME) / NICKEL);
+        double makeChange = currentMoney * PERCENT;
+        int quarter = (int) makeChange / QUARTER;
+        makeChange = makeChange - (QUARTER * quarter);
+        int dime = (int)makeChange / DIME;
+        makeChange = makeChange - (DIME * dime);
+        int nickel = (int) makeChange / NICKEL;
+        makeChange = makeChange - (NICKEL * nickel);
         System.out.println("Dispensing Change: " + formatter.format(currentMoney) + "\r\n" + "Quarters: " + quarter +
                 "\r\nDimes: " + dime + "\r\nNickels: " + nickel);
-        currentMoney = 0.00;
-        System.out.println("Vending Machine Balance: " + formatter.format(currentMoney) +
+        System.out.println("Vending Machine Balance: " + formatter.format(makeChange) +
                 "\r\nThanks for using the Vendo-Matic 800!");
+        //returning the string so that this method can be tested
+        return "Dispensing Change: " + formatter.format(currentMoney) + "\r\n" + "Quarters: " + quarter +
+                "\r\nDimes: " + dime + "\r\nNickels: " + nickel +"\r\n" +"Vending Machine Balance: " + formatter.format(makeChange) +
+                "\r\nThanks for using the Vendo-Matic 800!";
     }
 }
