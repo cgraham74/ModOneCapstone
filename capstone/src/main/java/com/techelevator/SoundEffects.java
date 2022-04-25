@@ -12,7 +12,8 @@ public class SoundEffects {
     @Override
     public String toString() {
         if (product.getProductType().equalsIgnoreCase("chip")) {
-            return "Crunch Crunch, Yum!";
+
+            return  "Crunch Crunch, Yum!";
         }
         if (product.getProductType().equalsIgnoreCase("candy")) {
             return "Munch Munch, Yum!";

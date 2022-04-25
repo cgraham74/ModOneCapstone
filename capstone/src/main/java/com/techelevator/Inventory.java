@@ -34,7 +34,9 @@ public class Inventory {
     }
 
     public void displayAvailableProducts() {
+        System.out.println((char)27 + "[35m");
         System.out.printf("%-3s%-20s%-8s%-8s%s", "ID", "NAME", "PRICE", "TYPE", "AMOUNT\n");
+        System.out.println((char)27 + "[37m");
         for (Product product : vendingProducts) {
             System.out.printf("%-3s%-20s%-8s%-8s(%s)\n", product.getProductId(),
                     product.getProductName(), formatter.format(product.getProductPrice()),
